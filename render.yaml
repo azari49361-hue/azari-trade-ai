@@ -1,0 +1,24 @@
+# Blueprint رایگان Render برای AZARI TRADE AI
+# سرویس web با پلن Free و ایمیج Docker همین ریپو ساخته می‌شود.
+# دیتابیس رایگان Render پس از ۳۰ روز منقضی می‌شود، پس DATABASE_URL را از Neon
+# (رایگان و بدون انقضا) بدهید — راهنما: docs/FREE-HOSTING.md
+services:
+  - type: web
+    name: azari-trade-ai
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        sync: false # مقدار را در داشبورد Render وارد کنید (رشتهٔ Neon)
+      - key: NODE_ENV
+        value: production
+      - key: BIQUOTE_ENABLED
+        value: "true"
+      - key: REPORT_ENABLED
+        value: "true"
+      - key: CORS_ORIGIN
+        sync: false # فقط اگر صفحه جای دیگری است؛ وگرنه خالی بگذارید
